@@ -28,4 +28,4 @@ jobs:
       run: python manage.py test
 
     - name: Run Flake8
-      run: flake8
+      run: flake8 --verbose
