@@ -25,7 +25,8 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Run Tests
-      run: python /home/runner/work/HW5/myproject/manage.py test
+      working-directory: HW5/myproject
+      run: python manage.py test
 
     - name: Run Flake8
       run: flake8 --verbose
