@@ -1,0 +1,110 @@
+[
+{
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$A7WCVxOws3H4k3C25kMgdp$rZ8Jlm7SaBjkjegRxp2vmJuxRMX1H7Sbw5QXEA9+1Gw=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "olena",
+        "first_name": "",
+        "last_name": "",
+        "email": "olena@domain.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2023-06-16T11:27:27.099Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 22,
+    "fields": {
+        "password": "meZsXew921R",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Jeffery Hart",
+        "first_name": "",
+        "last_name": "",
+        "email": "jefferyhart@domain.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-06-16T12:14:11.299Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 23,
+    "fields": {
+        "password": "cc1IkS3qviT",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Joseph Steele",
+        "first_name": "",
+        "last_name": "",
+        "email": "josephsteele@domain.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-06-16T12:14:11.299Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 24,
+    "fields": {
+        "password": "z5mEgASjfBv",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Stephen Mcbride",
+        "first_name": "",
+        "last_name": "",
+        "email": "stephenmcbride@domain.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-06-16T12:14:11.299Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 25,
+    "fields": {
+        "password": "Flu6laMXqDt",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Sylvia Soto",
+        "first_name": "",
+        "last_name": "",
+        "email": "sylviasoto@domain.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-06-16T12:14:11.299Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 26,
+    "fields": {
+        "password": "S67ELYhFXnp",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "William Leblanc",
+        "first_name": "",
+        "last_name": "",
+        "email": "williamleblanc@domain.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2023-06-16T12:14:11.299Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
