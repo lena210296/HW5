@@ -21,6 +21,11 @@ jobs:
       with:
         python-version: '3.10'
 
+    - name: Install Graphviz
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y graphviz libgraphviz-dev
+
     - name: Install dependencies
       run: pip install -r requirements.txt
 
@@ -31,9 +36,6 @@ jobs:
     - name: Run Flake8
       run: flake8 --verbose
 
-    - name: Install Graphviz
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y graphviz libgraphviz-dev
+
 
       
