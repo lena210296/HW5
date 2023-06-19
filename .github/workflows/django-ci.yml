@@ -30,3 +30,10 @@ jobs:
 
     - name: Run Flake8
       run: flake8 --verbose
+
+    - name: Install Graphviz
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y graphviz libgraphviz-dev
+
+      
