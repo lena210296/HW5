@@ -2,27 +2,28 @@ from math import sqrt
 
 from django.shortcuts import render
 
+from triangle.forms import TriangleForm
+
 
 def triangle_view(request):
     if request.method == 'GET':
-        return render(request, 'form.html')
+        form = TriangleForm()
+        return render(request, 'form.html', {'form': form})
     elif request.method == 'POST':
-        cathetus1 = request.POST.get('cathetus1')
-        cathetus2 = request.POST.get('cathetus2')
+        form = TriangleForm(request.POST)
 
-        try:
-            cathetus1 = float(cathetus1)
-            cathetus2 = float(cathetus2)
-        except ValueError:
-            error_message = "Invalid cathetus values provided."
-            return render(request, 'form.html', {'error_message': error_message})
+        if form.is_valid():
+            cathetus1 = form.cleaned_data['cathetus1']
+            cathetus2 = form.cleaned_data['cathetus2']
 
-        if cathetus1 <= 0 or cathetus2 <= 0:
-            error_message = "Cathetus values should be greater than 0."
-            return render(request, 'form.html', {'error_message': error_message})
+            if cathetus1 <= 0 or cathetus2 <= 0:
+                error_message = "Cathetus values should be greater than 0."
+                return render(request, 'form.html', {'form': form, 'error_message': error_message})
 
-        hypotenuse = sqrt(cathetus1 ** 2 + cathetus2 ** 2)
-        return render(request, 'result.html', {'hypotenuse': hypotenuse})
+            hypotenuse = sqrt(cathetus1 ** 2 + cathetus2 ** 2)
+            return render(request, 'result.html', {'hypotenuse': hypotenuse})
+
+        return render(request, 'form.html', {'form': form})
 
 
 # Create your views here.

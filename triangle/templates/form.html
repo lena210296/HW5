@@ -7,22 +7,15 @@
     <h1>Triangle Form</h1>
 
     {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>
-        <br>
+        <p>{{ error_message }}</p>
     {% endif %}
 
     <form method="POST" action="{% url 'triangle' %}">
         {% csrf_token %}
-
-        <label for="cathetus1">Cathetus 1:</label>
-        <input type="int" id="cathetus1" name="cathetus1">
+        {{ form }}
         <br>
-
-        <label for="cathetus2">Cathetus 2:</label>
-        <input type="int" id="cathetus2" name="cathetus2">
-        <br>
-
         <button type="submit">Calculate Hypotenuse</button>
     </form>
 </body>
 </html>
+
