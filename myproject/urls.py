@@ -17,6 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from triangle.views import triangle_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+]
+
+app_name = 'triangle'
+
+urlpatterns = [
+    path('triangle/', triangle_view, name='triangle'),
 ]
