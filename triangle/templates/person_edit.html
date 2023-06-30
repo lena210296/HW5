@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Person</title>
+</head>
+<body>
+    <h1>Edit Person</h1>
+    <form method="POST" action="{% url 'person_edit' person.id %}">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
+

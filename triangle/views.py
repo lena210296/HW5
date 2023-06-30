@@ -1,8 +1,10 @@
 from math import sqrt
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
 from triangle.forms import TriangleForm
+from .models import Person
+from .forms import PersonForm
 
 
 def triangle_view(request):
@@ -25,5 +27,34 @@ def triangle_view(request):
 
         return render(request, 'form.html', {'form': form})
 
+
+def person_add(request):
+    if request.method == 'POST':
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('person_list')
+    else:
+        form = PersonForm()
+
+    return render(request, 'person_add.html', {'form': form})
+
+
+def person_edit(request, pk):
+    person = get_object_or_404(Person, pk=pk)
+    if request.method == 'POST':
+        form = PersonForm(request.POST, instance=person)
+        if form.is_valid():
+            form.save()
+            return redirect('person_list')
+    else:
+        form = PersonForm(instance=person)
+
+    return render(request, 'person_edit.html', {'person': person, 'form': form})
+
+
+def person_list(request):
+    persons = Person.objects.all()
+    return render(request, 'person_list.html', {'persons': persons})
 
 # Create your views here.
