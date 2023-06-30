@@ -1,10 +1,10 @@
 from math import sqrt
 
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
-from triangle.forms import TriangleForm
+from triangle.forms import PersonForm, TriangleForm
+
 from .models import Person
-from .forms import PersonForm
 
 
 def triangle_view(request):

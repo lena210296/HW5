@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from triangle.views import triangle_view
+from triangle.views import person_add, person_edit, person_list, triangle_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,7 @@ app_name = 'triangle'
 
 urlpatterns = [
     path('triangle/', triangle_view, name='triangle'),
+    path('person/add', person_add, name='person_add'),
+    path('person/edit/<int:pk>/', person_edit, name='person_edit'),
+    path('person/list/', person_list, name='person_list'),
 ]
