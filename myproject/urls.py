@@ -30,4 +30,5 @@ urlpatterns = [
     path('person/add', person_add, name='person_add'),
     path('person/edit/<int:pk>/', person_edit, name='person_edit'),
     path('person/list/', person_list, name='person_list'),
+    path('admin/', admin.site.urls),
 ]
