@@ -1,0 +1,23 @@
+<h1>Publisher List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Publisher</th>
+      <th>Number of Books</th>
+      <th>Total Pages</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for publisher in publishers %}
+    <tr>
+      <td>{{ publisher.name }}</td>
+      <td>{{ publisher.num_books }}</td>
+      <td>{{ publisher.total_pages }}</td>
+      <td><a href="{% url 'publisher_books' publisher.id %}">View Books</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+

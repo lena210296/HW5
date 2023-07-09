@@ -1,0 +1,28 @@
+<h1><a href="{% url 'book_list' %}">{{ books.0.name }}</a></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Publisher</th>
+      <th>Store</th>
+      <th>Pub Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+      <tr>
+        <td>{{ book.publisher.name }}</td>
+        <td>
+          {% for store in book.store_set.all %}
+            {{ store.name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </td>
+        <td>{{ book.pubdate }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+

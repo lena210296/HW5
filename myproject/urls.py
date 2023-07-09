@@ -14,21 +14,42 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from HW12.views import author_books, author_list, book_detail, book_list, publisher_books, publisher_list, \
+    store_detail, store_list
+
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from triangle.views import person_add, person_edit, person_list, triangle_view
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
 
 app_name = 'triangle'
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('triangle/', triangle_view, name='triangle'),
     path('person/add', person_add, name='person_add'),
     path('person/edit/<int:pk>/', person_edit, name='person_edit'),
     path('person/list/', person_list, name='person_list'),
-    path('admin/', admin.site.urls),
 ]
+
+app_name = 'HW12'
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('authors/', author_list, name='author_list'),
+    path('author/<int:pk>/', author_books, name='author_books'),
+    path('publishers/', publisher_list, name='publisher_list'),
+    path('publisher/<int:pk>/books/', publisher_books, name='publisher_books'),
+    path('books/', book_list, name='book_list'),
+    path('book/<int:pk>/', book_detail, name='book_detail'),
+    path('stores/', store_list, name='store_list'),
+    path('store/<int:pk>/', store_detail, name='store_detail'),
+]
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

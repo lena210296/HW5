@@ -1,0 +1,16 @@
+<h1><a href="{% url 'author_list'%}">Author: {{ author.name }}</a></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Book Names</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+      <tr>
+        <td>{{ book.name }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

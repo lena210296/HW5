@@ -7,3 +7,4 @@ flake8-print==5.0.0
 Faker~=18.9.0
 pygraphviz
 django-extensions
+django-debug-toolbar

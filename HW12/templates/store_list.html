@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Store Name</th>
+      <th>Number of Books</th>
+      <th>View Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for store in stores %}
+      <tr>
+        <td>{{ store.name }}</td>
+        <td>{{ store.num_books }}</td>
+        <td><a href="{% url 'store_detail' store.pk %}">View</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

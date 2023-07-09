@@ -1,0 +1,20 @@
+<h1><a href="{% url 'publisher_list'%}">Publisher: {{ publisher.name }}</a></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Book Name</th>
+      <th>Price</th>
+      <th>Pages</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+      <tr>
+        <td>{{ book.name }}</td>
+        <td>{{ book.price }}</td>
+        <td>{{ book.pages }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,0 +1,18 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Number of books</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for author in authors %}
+    <tr>
+      <td><a href="{% url 'author_books' author.id %}">{{ author.name }}</a></td>
+      <td>{{ author.num_books }}</td>
+      <td>{{ author.age }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

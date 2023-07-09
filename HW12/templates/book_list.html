@@ -1,0 +1,35 @@
+<h1>Book List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Pages</th>
+      <th>Price</th>
+      <th>Rating</th>
+      <th>Authors</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in books %}
+      <tr>
+        <td>{{ book.name }}</td>
+        <td>{{ book.pages }}</td>
+        <td>{{ book.price }}</td>
+        <td>{{ book.rating|floatformat:2 }}</td>
+        <td>
+          {% for author in book.authors.all %}
+            {{ author.name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </td>
+        <td><a href="{% url 'book_detail' book.id %}">View Details</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>Average Values:</h3>
+<p>Average Pages: {{ average_pages.avg_pages }}</p>
+<p>Average Price: {{ average_price.avg_price|floatformat:2 }}</p>
+<p>Average Rating: {{ average_rating.avg_rating|floatformat:2 }}</p>
