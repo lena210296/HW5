@@ -9,4 +9,4 @@ pygraphviz
 django-extensions
 django-debug-toolbar
 celery
-"celery[redis]"
+redis
