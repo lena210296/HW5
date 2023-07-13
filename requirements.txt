@@ -8,3 +8,5 @@ Faker~=18.9.0
 pygraphviz
 django-extensions
 django-debug-toolbar
+celery
+"celery[redis]"

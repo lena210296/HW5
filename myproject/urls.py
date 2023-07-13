@@ -17,6 +17,8 @@ Including another URLconf
 from HW12.views import author_books, author_list, book_detail, book_list, publisher_books, publisher_list, \
     store_detail, store_list
 
+from celery_task.views import create_reminder
+
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
@@ -35,7 +37,6 @@ urlpatterns = [
 
 app_name = 'HW12'
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authors/', author_list, name='author_list'),
@@ -46,7 +47,23 @@ urlpatterns = [
     path('book/<int:pk>/', book_detail, name='book_detail'),
     path('stores/', store_list, name='store_list'),
     path('store/<int:pk>/', store_detail, name='store_detail'),
+
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
+
+app_name = 'celery_task'
+
+urlpatterns = [
+    path('create-reminder/', create_reminder, name='create_reminder'),
+
+]
+
 if settings.DEBUG:
     import debug_toolbar
 
