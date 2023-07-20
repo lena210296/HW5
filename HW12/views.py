@@ -1,8 +1,20 @@
 from HW12.models import Author, Book, Publisher, Store
 
-from django.db.models import Avg, Count, Sum
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+
+)
+
+from .forms import BookForm
 
 
 def author_list(request):
@@ -36,6 +48,7 @@ def publisher_books(request, pk):
     return render(request, 'publisher_books.html', context)
 
 
+""""
 def book_list(request):
     books = Book.objects.all().prefetch_related('authors')
 
@@ -60,6 +73,52 @@ def book_detail(request, pk):
     books = [book]
     context = {'books': books}
     return render(request, 'book_detail.html', context)
+
+"""
+
+
+class BookListView(ListView):
+    model = Book
+    template_name = 'book_list_new.html'
+    paginate_by = 10
+
+
+class BookDetailView(LoginRequiredMixin, DetailView):
+    model = Book
+    template_name = 'book_detail_new.html'
+    context_object_name = 'book'
+
+
+class BookCreateView(LoginRequiredMixin, CreateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'book_form.html'
+    success_url = reverse_lazy('book-list')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['rating'].widget.attrs['step'] = '0.01'
+        form.fields['pubdate'].widget.attrs['placeholder'] = 'YYYY-MM-DD'
+        return form
+
+
+class BookUpdateView(LoginRequiredMixin, UpdateView):
+    model = Book
+    form_class = BookForm
+    template_name = 'book_form.html'
+    success_url = reverse_lazy('book-list')
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['rating'].widget.attrs['step'] = '0.01'
+        form.fields['pubdate'].widget.attrs['placeholder'] = 'YYYY-MM-DD'
+        return form
+
+
+class BookDeleteView(LoginRequiredMixin, DeleteView):
+    model = Book
+    template_name = 'book_confirm_delete.html'
+    success_url = reverse_lazy('book-list')
 
 
 def store_list(request):

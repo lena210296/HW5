@@ -14,8 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from HW12.views import author_books, author_list, book_detail, book_list, publisher_books, publisher_list, \
-    store_detail, store_list
+from HW12.views import BookCreateView, BookDeleteView, BookDetailView, BookListView, BookUpdateView, author_books, \
+    author_list, \
+    publisher_books, publisher_list, store_detail, store_list
 
 from celery_task.views import create_reminder
 
@@ -34,19 +35,11 @@ urlpatterns = [
     path('person/edit/<int:pk>/', person_edit, name='person_edit'),
     path('person/list/', person_list, name='person_list'),
 ]
-
-app_name = 'HW12'
+app_name = 'celery_task'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('authors/', author_list, name='author_list'),
-    path('author/<int:pk>/', author_books, name='author_books'),
-    path('publishers/', publisher_list, name='publisher_list'),
-    path('publisher/<int:pk>/books/', publisher_books, name='publisher_books'),
-    path('books/', book_list, name='book_list'),
-    path('book/<int:pk>/', book_detail, name='book_detail'),
-    path('stores/', store_list, name='store_list'),
-    path('store/<int:pk>/', store_detail, name='store_detail'),
+    path('create-reminder/', create_reminder, name='create_reminder'),
 
 ]
 
@@ -57,10 +50,23 @@ if settings.DEBUG:
         path('__debug__/', include(debug_toolbar.urls)),
     ]
 
-app_name = 'celery_task'
+app_name = 'HW12'
 
 urlpatterns = [
-    path('create-reminder/', create_reminder, name='create_reminder'),
+    path('admin/', admin.site.urls),
+    path('authors/', author_list, name='author_list'),
+    path('author/<int:pk>/', author_books, name='author_books'),
+    path('publishers/', publisher_list, name='publisher_list'),
+    path('publisher/<int:pk>/books/', publisher_books, name='publisher_books'),
+    # path('books/', book_list, name='book_list'),
+    path('books/', BookListView.as_view(), name='book-list'),
+    path('book/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
+    path('create/', BookCreateView.as_view(), name='book-create'),
+    path('edit/<int:pk>/', BookUpdateView.as_view(), name='book-edit'),
+    path('delete/<int:pk>/', BookDeleteView.as_view(), name='book-delete'),
+    # path('book/<int:pk>/', book_detail, name='book_detail'),
+    path('stores/', store_list, name='store_list'),
+    path('store/<int:pk>/', store_detail, name='store_detail'),
 
 ]
 
