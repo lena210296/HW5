@@ -1,25 +1,40 @@
 from HW12.models import Author, Book, Publisher, Store
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, Sum
+# from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Avg, Count, Sum
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-
-)
-
-from .forms import BookForm
+from django.views.decorators.cache import cache_page
 
 
+# from django.urls import reverse_lazy
+# from django.views.generic import (
+#    CreateView,
+#    DeleteView,
+#   DetailView,
+#   ListView,
+#   UpdateView,
+
+# )
+
+# from .forms import BookForm
+
+@cache_page(60 * 2)
 def author_list(request):
     authors = Author.objects.annotate(num_books=Count('book')).prefetch_related('book_set')
-    context = {'authors': authors}
+    paginator = Paginator(authors, 100)
+    page = request.GET.get('page')
+    try:
+        paginated_authors = paginator.page(page)
+    except PageNotAnInteger:
+
+        paginated_authors = paginator.page(1)
+    except EmptyPage:
+
+        paginated_authors = paginator.page(paginator.num_pages)
+
+    context = {'paginated_authors': paginated_authors}
     return render(request, 'author_list.html', context)
 
 
@@ -48,20 +63,33 @@ def publisher_books(request, pk):
     return render(request, 'publisher_books.html', context)
 
 
-""""
+@cache_page(60 * 2)
 def book_list(request):
     books = Book.objects.all().prefetch_related('authors')
+
+    paginator = Paginator(books, 100)
+    page = request.GET.get('page')
+
+    try:
+        paginated_books = paginator.page(page)
+    except PageNotAnInteger:
+
+        paginated_books = paginator.page(1)
+    except EmptyPage:
+
+        paginated_books = paginator.page(paginator.num_pages)
 
     average_pages = books.aggregate(avg_pages=Avg('pages'))
     average_price = books.aggregate(avg_price=Avg('price'))
     average_rating = books.aggregate(avg_rating=Avg('rating'))
 
     context = {
-        'books': books,
         'average_pages': average_pages,
         'average_price': average_price,
-        'average_rating': average_rating
+        'average_rating': average_rating,
+        'paginated_books': paginated_books,
     }
+
     return render(request, 'book_list.html', context)
 
 
@@ -74,9 +102,8 @@ def book_detail(request, pk):
     context = {'books': books}
     return render(request, 'book_detail.html', context)
 
+
 """
-
-
 class BookListView(ListView):
     model = Book
     template_name = 'book_list_new.html'
@@ -119,6 +146,8 @@ class BookDeleteView(LoginRequiredMixin, DeleteView):
     model = Book
     template_name = 'book_confirm_delete.html'
     success_url = reverse_lazy('book-list')
+
+"""
 
 
 def store_list(request):

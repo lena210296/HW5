@@ -13,7 +13,7 @@ class Command(BaseCommand):
 
         # Create authors
         authors = []
-        for _ in range(10):
+        for _ in range(200):
             author = Author.objects.create(
                 name=fake.name(),
                 age=fake.random_int(min=20, max=60)
@@ -34,13 +34,13 @@ class Command(BaseCommand):
 
         # Create books
         books = []
-        for _ in range(20):
+        for _ in range(300):
             publisher = fake.random_element(publishers)
             book = Book.objects.create(
                 name=fake.catch_phrase(),
                 pages=fake.random_int(min=100, max=500),
                 price=fake.random.uniform(10.0, 50.0),
-                rating=fake.random.uniform(1.0, 5.0),
+                rating=round(fake.random.uniform(1.0, 5.0), 2),
                 publisher=publisher,
                 pubdate=fake.date_between(start_date='-1y', end_date='today')
             )

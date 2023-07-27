@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for author in authors %}
+    {% for author in paginated_authors %}
     <tr>
       <td><a href="{% url 'author_books' author.id %}">{{ author.name }}</a></td>
       <td>{{ author.num_books }}</td>
@@ -16,3 +16,21 @@
     {% endfor %}
   </tbody>
 </table>
+<div class="pagination">
+    <span class="step-links">
+        {% if paginated_authors.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ paginated_authors.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ paginated_authors.number }} of {{ paginated_authors.paginator.num_pages }}.
+        </span>
+
+        {% if paginated_authors.has_next %}
+            <a href="?page={{ paginated_authors.next_page_number }}">next</a>
+            <a href="?page={{ paginated_authors.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
